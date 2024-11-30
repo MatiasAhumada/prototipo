@@ -1,0 +1,37 @@
+/* General styles for full height */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* Wrapper to make sure content stretches 100% of the screen */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navigation bar styles */
+nav {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+/* Footer styles */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  margin-top: auto;
+  width: 100%;
+}
+
+
