@@ -35,7 +35,9 @@ const Eliminar = () => {
     }
     setCambio(true);
   };
-
+  const handleSelectEmpleado = (empleadoSeleccionado) => {
+    setEmpleado(empleadoSeleccionado);
+  };
   const realizado = () => {
     Swal.fire({
       title: "Confirmacion",
@@ -45,6 +47,7 @@ const Eliminar = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
+        setEmpleado(null);
         Swal.fire("Confirmado!", "Empleado Eliminado", "success");
       } else if (result.isDismissed) {
         Swal.fire("Error", "No se logró eliminar el empleado", "error");
@@ -78,33 +81,21 @@ const Eliminar = () => {
         </Row>
       </Form>
       <Row>
-        {cambio === false ? (
-          <>
-            <Col xs={6}>
-              <ListaEmpleados></ListaEmpleados>
-            </Col>
-            <Col xs={6}></Col>
-          </>
-        ) : (
-          <>
-            <Col xs={6}>
-              <ListaEmpleados></ListaEmpleados>
-            </Col>
-            <Col xs={6} className="mt-4">
-              {empleado && <CardEmpleado empleado={empleado}></CardEmpleado>}
-            </Col>
-            {empleado && (
-              <Row className="mt-5 text-center">
-                <Col xs={12}>
-                  <Button type="button" onClick={realizado}>
-                    Eliminar
-                  </Button>
-                </Col>
-              </Row>
-            )}
-          </>
-        )}
+        <Col xs={6}>
+          <ListaEmpleados onSelectEmpleado={handleSelectEmpleado} />
+        </Col>
+        <Col xs={6} className="mt-4">
+          {empleado && <CardEmpleado empleado={empleado} />}
+        </Col>
+        
       </Row>
+      {empleado && (
+        <Row className="mt-5 text-center">
+          <Col xs={12}>
+            <Button onClick={realizado}>Quitar</Button>
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };

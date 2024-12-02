@@ -43,7 +43,7 @@ const Desasignacion = () => {
   };
   const handleSelectTarea = (tarea) => {
     setTareaSeleccionada(tarea);
-    console.log(tarea);
+ 
   };
 
   const handleSelectEmpleado = (empleadoSeleccionado) => {
