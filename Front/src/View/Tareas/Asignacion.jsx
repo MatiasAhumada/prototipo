@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import arrow from "../../assets/left-arrow.png";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +11,7 @@ import Swal from "sweetalert2";
 const Asignacion = () => {
   const [dni, setDni] = useState("");
 
-  const [cambio, setCambio] = useState(false);
+
   const [empleado, setEmpleado] = useState(null);
   const [tareaSeleccionada, setTareaSeleccionada] = useState("");
 
@@ -42,6 +41,9 @@ const Asignacion = () => {
   const handleSelectTarea = (tarea) => {
     setTareaSeleccionada(tarea);
     console.log(tarea);
+  };
+  const handleSelectEmpleado = (empleadoSeleccionado) => {
+    setEmpleado(empleadoSeleccionado);
   };
   const realizado = () => {
     Swal.fire({
@@ -85,37 +87,23 @@ const Asignacion = () => {
         </Row>
       </Form>
       <Row>
-        {cambio === false ? (
-          <>
-            <Col xs={4}>
-              <ListaEmpleados></ListaEmpleados>
-            </Col>
-            <Col xs={4}></Col>
-            <Col xs={4}></Col>
-          </>
-        ) : (
-          <>
-            <Col xs={4}>
-              <ListaEmpleados></ListaEmpleados>
-            </Col>
-            <Col xs={4} className="mt-4">
-              {empleado && <CardEmpleado empleado={empleado}></CardEmpleado>}
-            </Col>
-            <Col xs={4} className="mt-5 text-center ">
-              {empleado && <ListaTareas tareas={tareas} onSelectTarea={handleSelectTarea}></ListaTareas>}
-            </Col>
-            {empleado && (
-              <Row className="mt-5 text-center">
-                <Col xs={12}>
-                  <Button type="button" onClick={realizado}>
-                    Realizado
-                  </Button>
-                </Col>
-              </Row>
-            )}
-          </>
-        )}
+        <Col xs={4}>
+          <ListaEmpleados onSelectEmpleado={handleSelectEmpleado} />
+        </Col>
+        <Col xs={4} className="mt-4">
+          {empleado && <CardEmpleado empleado={empleado} />}
+        </Col>
+        <Col xs={4} className="mt-5 text-center">
+          {empleado && <ListaTareas tareas={tareas} onSelectTarea={handleSelectTarea} />}
+        </Col>
       </Row>
+      {empleado && tareaSeleccionada && (
+        <Row className="mt-5 text-center">
+          <Col xs={12}>
+            <Button onClick={realizado}>Realizado</Button>
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };

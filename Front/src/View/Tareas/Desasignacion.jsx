@@ -44,6 +44,10 @@ const Desasignacion = () => {
     setTareaSeleccionada(tarea);
     console.log(tarea);
   };
+
+  const handleSelectEmpleado = (empleadoSeleccionado) => {
+      setEmpleado(empleadoSeleccionado);
+    };
   const realizado = () => {
     Swal.fire({
       title: "Confirmacion",
@@ -86,37 +90,23 @@ const Desasignacion = () => {
         </Row>
       </Form>
       <Row>
-        {cambio === false ? (
-          <>
-            <Col xs={4}>
-              <ListaEmpleados></ListaEmpleados>
-            </Col>
-            <Col xs={4}></Col>
-            <Col xs={4}></Col>
-          </>
-        ) : (
-          <>
-            <Col xs={4}>
-              <ListaEmpleados></ListaEmpleados>
-            </Col>
-            <Col xs={4} className="mt-4">
-              {empleado && <CardEmpleado empleado={empleado}></CardEmpleado>}
-            </Col>
-            <Col xs={4} className="mt-5 text-center ">
-              {empleado && <ListaTareas tareas={tareas} onSelectTarea={handleSelectTarea}></ListaTareas>}
-            </Col>
-            {empleado && (
-              <Row className="mt-5 text-center">
-                <Col xs={12}>
-                  <Button type="button" onClick={realizado}>
-                    Quitar
-                  </Button>
-                </Col>
-              </Row>
-            )}
-          </>
-        )}
+        <Col xs={4}>
+          <ListaEmpleados onSelectEmpleado={handleSelectEmpleado} />
+        </Col>
+        <Col xs={4} className="mt-4">
+          {empleado && <CardEmpleado empleado={empleado} />}
+        </Col>
+        <Col xs={4} className="mt-5 text-center">
+          {empleado && <ListaTareas tareas={tareas} onSelectTarea={handleSelectTarea} />}
+        </Col>
       </Row>
+      {empleado && tareaSeleccionada && (
+        <Row className="mt-5 text-center">
+          <Col xs={12}>
+            <Button onClick={realizado}>Quitar</Button>
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };

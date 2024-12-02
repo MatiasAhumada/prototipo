@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { ListGroup, Container } from "react-bootstrap";
 import personas from "../../queries/bd";
-const ListaEmpleados = () => {
+const ListaEmpleados = ({ onSelectEmpleado }) => {
  
 
   return (
@@ -17,7 +17,7 @@ const ListaEmpleados = () => {
       >
         <ListGroup>
           {personas.map((persona, index) => (
-            <ListGroup.Item key={index}>{persona.nombre +" "+ persona.apellido}</ListGroup.Item>
+            <ListGroup.Item key={index} action  onClick={() => onSelectEmpleado(persona)}>{persona.nombre +" "+ persona.apellido}</ListGroup.Item>
           ))}
         </ListGroup>
       </div>
