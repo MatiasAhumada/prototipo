@@ -54,6 +54,7 @@ const Asignacion = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
+        setEmpleado(null);
         Swal.fire("Confirmado!", "Tarea Asignada", "success");
       } else if (result.isDismissed) {
         Swal.fire("Error", "No se logró asignar la tarea", "error");

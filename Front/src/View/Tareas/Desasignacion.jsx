@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 const Desasignacion = () => {
   const [dni, setDni] = useState("");
 
-  const [cambio, setCambio] = useState(false);
+  
   const [empleado, setEmpleado] = useState(null);
   const [tareaSeleccionada, setTareaSeleccionada] = useState("");
 
@@ -28,6 +28,7 @@ const Desasignacion = () => {
         title: "Empleado encontrado",
         timer: 1500,
       });
+
     } else {
       Swal.fire({
         icon: "error",
@@ -38,7 +39,7 @@ const Desasignacion = () => {
       });
       setEmpleado(null);
     }
-    setCambio(true);
+    
   };
   const handleSelectTarea = (tarea) => {
     setTareaSeleccionada(tarea);
@@ -57,7 +58,9 @@ const Desasignacion = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
+        setEmpleado(null);
         Swal.fire("Confirmado!", "Tarea Desasignada", "success");
+   
       } else if (result.isDismissed) {
         Swal.fire("Error", "No se logró desasignar la tarea", "error");
       }
