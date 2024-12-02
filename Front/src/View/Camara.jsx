@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import Faceidicon from "../assets/capture.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CameraComponent = () => {
   const videoRef = useRef(null);
   const navigate = useNavigate()
+  const location= useLocation();
 
   useEffect(() => {
     startCamera();
@@ -36,7 +37,10 @@ const CameraComponent = () => {
         title: "Asistencia registrada",
         showConfirmButton: true,
       });
-      navigate("/inicio")
+    
+      navigate(location.state?.fromCrear ? "/crear" : "/inicio", {
+        state: { biometricoConfirmado: true },
+      });
     }
   };
 

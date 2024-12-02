@@ -45,15 +45,22 @@ const Asignacion = () => {
   };
   const realizado = () => {
     Swal.fire({
-      icon: "success",
-      title: "Tarea asignada",
-      timer: 1500,
+      title: "Confirmacion",
+      text: "¿Esta seguro que desea asignar esta tarea?",
+      showCancelButton: true,
+      confirmButtonText: "Asignar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Confirmado!", "Tarea Asignada", "success");
+      } else if (result.isDismissed) {
+        Swal.fire("Error", "No se logró asignar la tarea", "error");
+      }
     });
   };
   return (
     <Container>
       <Button as={Link} to="/inicio" type="button" variant="primary" className="mt-5 mb-5">
-        {/* <img src={arrow} alt="flecha izquierda"  style={{ width: "30%" }} /> */}
         <FontAwesomeIcon className="me-2" icon={faArrowLeft}></FontAwesomeIcon>
         Atras
       </Button>
@@ -97,14 +104,15 @@ const Asignacion = () => {
             <Col xs={4} className="mt-5 text-center ">
               {empleado && <ListaTareas tareas={tareas} onSelectTarea={handleSelectTarea}></ListaTareas>}
             </Col>
-           {empleado && <Row className="mt-5 text-center">
-              <Col xs={12}>
-              
-                <Button type="button" onClick={realizado}>
-                  Realizado
-                </Button>
-              </Col>
-            </Row>}
+            {empleado && (
+              <Row className="mt-5 text-center">
+                <Col xs={12}>
+                  <Button type="button" onClick={realizado}>
+                    Realizado
+                  </Button>
+                </Col>
+              </Row>
+            )}
           </>
         )}
       </Row>
